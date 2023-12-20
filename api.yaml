@@ -1,0 +1,127 @@
+openapi: 3.0.2
+servers:
+  - url: http://127.0.0.1:3000
+info:
+  description: This is API Doc for Rental Service
+  title: Swagger API Doc for Rental Service
+  version: 1.0.0
+
+tags:
+  - name: Authentication
+    description: Operations about Authentication
+
+paths:
+  # Auth Routes
+  /api/vendor/signup:
+    post:
+      tags:
+        - Authentication
+      summary: SignUp vendor into the system
+      requestBody:
+        description: SignUp vendor into the system
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "dev001"
+                email:
+                  type: string
+                  example: "email@gmail.com"
+                password:
+                  type: string
+                  format: password
+                  example: "password123"
+      responses:
+        "200":
+          description: SignUp Successfully.
+  /api/vendor/login:
+    post:
+      tags:
+        - Authentication
+      summary: Logs vendor into the system
+      requestBody:
+        description: Login vendor into the system
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "email@gmail.com"
+                password:
+                  type: string
+                  format: password
+                  example: "password123"
+      responses:
+        "200":
+          description: Login Successfully.
+components:
+  # Schema Usage in component
+  # schemas:
+  #   Post:
+  #     type: object
+  #     properties:
+  #       title:
+  #         type: string
+  #         example: "Post01"
+  #       description:
+  #         type: string
+  #         example: "Description01"
+  #       status:
+  #         type: boolean
+  #         example: true
+  #       created_user_id:
+  #         type: string
+  #         example: "62fde243b554f4955fdf7914"
+  #     xml:
+  #       name: post
+  #   User:
+  #     type: object
+  #     properties:
+  #       name:
+  #         type: string
+  #         example: "Post01"
+  #       email:
+  #         type: string
+  #         example: "Description01"
+  #       password:
+  #         type: string
+  #         format: password
+  #         example: "password123"
+  #       type:
+  #         type: string
+  #         description: User Roles
+  #         enum:
+  #           - Admin
+  #           - User
+  #       phone:
+  #         type: string
+  #         example: "0912345678"
+  #       dob:
+  #         type: string
+  #         format: date
+  #         example: 2022-06-30
+  #       address:
+  #         type: string
+  #         example: "Address"
+  #       profile:
+  #         type: string
+  #         example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+  #     xml:
+  #       name: user
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+
+# 2) Apply the security globally to all operations
+security:
+  - bearerAuth: []
